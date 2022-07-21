@@ -1,4 +1,3 @@
-
 import pprint
 import pandas as pd
 input_json = '../DataFiles/RawData/myJson.json'

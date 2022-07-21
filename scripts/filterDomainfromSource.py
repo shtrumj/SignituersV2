@@ -4,7 +4,6 @@ input_json = '../DataFiles/RawData/myJson.json'
 indict = {}
 
 df = pd.read_json(input_json)
-
 def jsonFlat():
     first = len(df['publications'])
     indict = {'type':[], 'value':[]}
@@ -15,24 +14,29 @@ def jsonFlat():
         maxsec = {"max": max, "second":sec}
         MyDictionary = {"type":[], "value":[]}
         newDict = dict()
+        MyDictionary.clear()
+        temp = []
+        domains = []
         for x in maxsec:
-            value =(df['publications'][max]['indicators'][sec-1]["value"])
-            type=(df['publications'][max]['indicators'][sec - 1]["type"])
-            MyDictionary["value"] = value
-            MyDictionary["type"] = type
-            print(dict(filter(lambda x: x[1] == 'domain',MyDictionary.values())))
-            # for key, value in MyDictionary.items():
-            #     if value == 'domain':
-            #         print(value)
+            value, type =(df['publications'][max]['indicators'][sec-1]["value"],df['publications'][max]['indicators'][sec - 1]["type"])
+            # MyDictionary["value","type"] = value,type
+            MyDictionary.update({'value':value, 'type':type})
+            # print(MyDictionary['type']
+            for key, value in MyDictionary.items():
+                if value == 'domain':
+                    # print(MyDictionary['value'])
+                    domains.append(str(MyDictionary['value']))
+                    # print(domains)
+                    with open("../DataFiles/domains.txt", 'a') as md:
+                        for line in domains:
+                            md.write("%s\n" % line)
 
-            # type_filter = [t for t in MyDictionary.items() if v =='domain']
-            # print(type_filter)
-            # pprint.pprint(MyDictionary["type"] == "domain")
-            # for key,value in MyDictionary.items():
-            #     if key == "domain":
-            #         newDict[key] = value
-            # print("filtered: ", newDict)
     return
+
+
+
+
+
 
 
 jsonFlat()

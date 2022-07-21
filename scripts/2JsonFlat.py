@@ -1,24 +1,12 @@
-import json
-# from flatten_json import flatten
+
 import pprint
-
 import pandas as pd
-import time
-from faker import Faker, Faker
-import numpy as np
-
-input_json = 'myJson.json'
+input_json = '../DataFiles/RawData/myJson.json'
 indict = {}
-# input_dict = json.loads(input_json)
+
 df = pd.read_json(input_json)
 
-
-# input_dict = json.loads(input_json)
-
-# print(input_dict)
-
-
-def get_second():
+def jsonFlat():
     first = len(df['publications'])
     indict = {'type':[], 'value':[]}
     maxsec = {"max": [], "second": []};
@@ -35,4 +23,4 @@ def get_second():
     return
 
 
-get_second()
+jsonFlat()

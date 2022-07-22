@@ -1,13 +1,43 @@
-import re
+import json
 
-f = open("../DataFiles/RawData/MyList.txt", "r")
+import pandas as pd
+DomainOutputFile = '../DataFiles/domains.txt'
+sha1outputFile = '../DataFiles/sha1.txt'
+with open("../DataFiles/RawData/myJson.json") as f:
+    data = json.load(f)
+# df = pd.DataFrame(data['publications'])
+data = data['publications']
+df = pd.DataFrame(data)
+EMList = []
+filterd = []
+finalDomains = []
+finalNoBtackets = []
+norm = pd.json_normalize(data=data)
+stop = norm.index.stop
+sha1= []
 
-data = f.read()
-regex = r'\b([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\b'
-#regex = r'^([a-z0-9]+(-[a-z0-9]+)*\[.])+[a-z]{2,}$'
-domains = re.findall(regex, data)
+for first in range(0,stop):
+    EMList.append(norm.indicators[first])
 
-print(domains)
-# with open ("../DataFiles/sha1.txt", 'w') as md:
-#      for line in sha1:
-#          md.write("%s\n" % line)
+
+for list in EMList:
+    for num in list:
+        if num["type"] == "domain":
+            finalDomains.append(num['value'])
+
+for list in EMList:
+    for num in list:
+        if num["type"] == "sha1":
+            sha1.append(num['value'])
+
+
+with open(DomainOutputFile, 'w') as output:
+    for z in finalNoBtackets:
+        output.writelines("%s\n" % z)
+
+
+with open(sha1outputFile, 'w') as sha1out:
+    for sha in sha1:
+        sha1out.writelines("%s\n" % sha)
+
+

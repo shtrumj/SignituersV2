@@ -17,10 +17,9 @@
 //     console.log(data)
 async function cyfetch() {
     var myHeaders = new Headers();
-    myHeaders.append("Access-Control-Allow-Origin", "http://127.0.0.1:4444");
     myHeaders.append("CN-USER-NAME", "soc_trot");
     myHeaders.append("Content-Type", "application/json")
-    myHeaders.append("X-API-KEY", "1E804161881901AB");
+    myHeaders.append("X-API-KEY", "0CED85C07DA0A153");
     myHeaders.append("Authorization", "Basic Og==");
     myHeaders.append("Cookie", "LastMRH_Session=b8c05467; MRHSession=1da3978fd1960afc055af4c9b8c05467");
 

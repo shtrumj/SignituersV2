@@ -3,11 +3,8 @@ from flask import Flask,render_template, request, send_file
 from scripts.Regexer import regexer
 app = Flask(__name__)
 
+regexer()
 
-@app.route('/')
-def hello_world():  # put application's code here
-    ipv4,sha1_hashes,sha256_hashes,domains = regexer()
-    return render_template('home.html', ipv4 = ipv4)
 
 @app.route('/download/sha1.csv')
 def csv_return():
@@ -16,7 +13,7 @@ def csv_return():
 
 @app.route('/download/sha1.txt')
 def sha1txt():
-    return send_file('sha1.txt')
+    return send_file('./Signitures/Checkpoint/sha1.csv')
 
 @app.route('/test')
 def testing():

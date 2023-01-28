@@ -11,7 +11,6 @@ def regexer():
         csver(ipv4, sha1_hashes, sha256_hashes, domains)
         csver(ipv4,sha1_hashes,sha256_hashes,domains)
         sha1_2csv(sha1_hashes)
-        # sha1_2txt(sha1_hashes)
         return ipv4,sha1_hashes,sha256_hashes,domains
 
 
@@ -32,18 +31,20 @@ def csver(ipv4,sha1_hashes,sha256_hashes,domains):
 
 def sha1_2csv(sha1):
     import csv
+    import os
     from io import StringIO
-    with open('sha1.csv', 'w',newline='') as csvsha:
+    path = os.path.dirname(__file__)
+    rel_path = "../Signitures/Checkpoint/sha1.csv"
+    fileAndPath = os.path.join(path, rel_path)
+    print(fileAndPath)
+    with open(fileAndPath, 'w',newline='') as csvsha:
         writer = csv.writer(csvsha)
         writer.writerow(['#! DESCRIPTION = ExternalCelsaFeed_Ip'])
         writer.writerow(['CA9DCD197D0061ABCF8537A9E7A8C9C64F799B53'])
-        for sha in sha1:
-            writer.writerow([sha])
+        for index,sha in enumerate(sha1, start=0):
+            writer.writerow([index, sha])
 
-def sha1_2txt(sha1):
-    with open('sha1.txt', 'w') as f:
-        for line in sha1:
-            f.write(line)
-            f.write('\n')
+
+
 
 

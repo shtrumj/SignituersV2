@@ -11,6 +11,8 @@ def regexer():
         csver(ipv4, sha1_hashes, sha256_hashes, domains)
         csver(ipv4,sha1_hashes,sha256_hashes,domains)
         sha1_2csv(sha1_hashes)
+        sha256_2csv(sha256_hashes)
+        ipv4_2csv(ipv4)
         return ipv4,sha1_hashes,sha256_hashes,domains
 
 
@@ -38,12 +40,41 @@ def sha1_2csv(sha1):
     fileAndPath = os.path.join(path, rel_path)
     print(fileAndPath)
     with open(fileAndPath, 'w',newline='') as csvsha:
-        writer = csv.writer(csvsha)
-        writer.writerow(['#! DESCRIPTION = ExternalCelsaFeed_Ip'])
-        writer.writerow(['CA9DCD197D0061ABCF8537A9E7A8C9C64F799B53'])
-        for index,sha in enumerate(sha1, start=0):
+        writer = csv.writer(csvsha, quotechar="'", quoting=csv.QUOTE_NONE)
+        writer.writerow(['"#! DESCRIPTION = ExternalCelsaFeed_Ip'])
+        writer.writerow(['0','CA9DCD197D0061ABCF8537A9E7A8C9C64F799B53'])
+        for index,sha in enumerate(sha1, start=1):
             writer.writerow([index, sha])
 
+def sha256_2csv(sha256):
+    import csv
+    import os
+    from io import StringIO
+    path = os.path.dirname(__file__)
+    rel_path = "../Signitures/Checkpoint/sha256.csv"
+    fileAndPath = os.path.join(path, rel_path)
+    print(fileAndPath)
+    with open(fileAndPath, 'w',newline='') as csvsha:
+        writer = csv.writer(csvsha, quotechar="'", quoting=csv.QUOTE_NONE)
+        writer.writerow(['"#! DESCRIPTION = ExternalCelsaFeed_Ip'])
+        # writer.writerow(['0','CA9DCD197D0061ABCF8537A9E7A8C9C64F799B53'])
+        for index,sha in enumerate(sha256, start=1):
+            writer.writerow([index, sha])
+
+def ipv4_2csv(ipv4):
+    import csv
+    import os
+    from io import StringIO
+    path = os.path.dirname(__file__)
+    rel_path = "../Signitures/Checkpoint/ip_addresses.csv"
+    fileAndPath = os.path.join(path, rel_path)
+    print(fileAndPath)
+    with open(fileAndPath, 'w',newline='') as csvsha:
+        writer = csv.writer(csvsha, quotechar="'", quoting=csv.QUOTE_NONE)
+        writer.writerow(['"#! DESCRIPTION = ExternalCelsaFeed_Ip'])
+        writer.writerow(['0','84.228.12.24'])  #mail.eyalsarig.com address for testing
+        for index,sha in enumerate(ipv4, start=1):
+            writer.writerow([index, sha])
 
 
 

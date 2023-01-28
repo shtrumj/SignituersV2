@@ -10,6 +10,8 @@ def regexer():
         ipv4 = re.findall(r'(?i)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', json.dumps(data))
         csver(ipv4, sha1_hashes, sha256_hashes, domains)
         csver(ipv4,sha1_hashes,sha256_hashes,domains)
+        sha1_2csv(sha1_hashes)
+        # sha1_2txt(sha1_hashes)
         return ipv4,sha1_hashes,sha256_hashes,domains
 
 
@@ -28,6 +30,20 @@ def csver(ipv4,sha1_hashes,sha256_hashes,domains):
             writer.writerow(["IPv4", ip])
 
 
+def sha1_2csv(sha1):
+    import csv
+    from io import StringIO
+    with open('sha1.csv', 'w',newline='') as csvsha:
+        writer = csv.writer(csvsha)
+        writer.writerow(['#! DESCRIPTION = ExternalCelsaFeed_Ip'])
+        writer.writerow(['CA9DCD197D0061ABCF8537A9E7A8C9C64F799B53'])
+        for sha in sha1:
+            writer.writerow([sha])
 
+def sha1_2txt(sha1):
+    with open('sha1.txt', 'w') as f:
+        for line in sha1:
+            f.write(line)
+            f.write('\n')
 
 

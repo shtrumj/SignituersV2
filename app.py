@@ -8,16 +8,19 @@ regexer()
 
 @app.route('/download/sha1.csv')
 def csv_return():
-    return send_file('sha1.csv')
+    return send_file('Signitures/Checkpoint/sha1.csv')
 
+@app.route('/download/sha256.csv')
+def sha256_return():
+    return send_file('Signitures/Checkpoint/sha256.csv')
 
-@app.route('/download/sha1.txt')
-def sha1txt():
-    return send_file('./Signitures/Checkpoint/sha1.csv')
+@app.route('/download/ip_addresses.csv')
+def ip_return():
+    return send_file('Signitures/Checkpoint/ip_addresses.csv')
+
 
 @app.route('/test')
 def testing():
-    ##share the sha1 : ca9dcd197d0061abcf8537a9e7a8c9c64f799b53 wich is in first line sha
     return send_file('iocs_check.csv')
 
 
